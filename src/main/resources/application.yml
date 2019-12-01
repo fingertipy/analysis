@@ -1,0 +1,33 @@
+#服务器配置
+server:
+  port: 8080
+  servlet:
+    context-path: /analysis
+
+#spring配置
+spring:
+  #页面路径
+  mvc:
+    static-path-pattern: /static/**
+  resources:
+    static-locations: classpath:/static/
+  thymeleaf:
+    prefix: classpath:/templates/
+
+  #热加载
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+
+  #数据源
+  datasource:
+    url: jdbc:mysql://192.168.3.152:3306/analysis?useUnicode=true&characterEncoding=utf-8&generateSimpleParameterMetadata=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: mmsghgn
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+#mybatis配置
+mybatis:
+  config-location: classpath:/mybatis-config.xml
+  mapper-locations: classpath:/mapper/*.xml
