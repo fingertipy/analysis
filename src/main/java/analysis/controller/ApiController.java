@@ -30,5 +30,7 @@ public class ApiController {
     public void exec(){
         String pypath = "D:\\repository\\analysis_python\\analysis\\model.py";
         PythonUtils.exec(pypath);
+        String pypath1 = "D:\\repository\\analysis_python\\analysis\\parametor.py";
+        PythonUtils.exec(pypath1, "4", "6");
     }
 }
