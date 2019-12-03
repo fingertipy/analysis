@@ -22,12 +22,16 @@ spring:
 
   #数据源
   datasource:
-    url: jdbc:mysql://192.168.3.152:3306/analysis?useUnicode=true&characterEncoding=utf-8&generateSimpleParameterMetadata=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://127.0.0.1:3306/analysis?useUnicode=true&characterEncoding=utf-8&generateSimpleParameterMetadata=true&serverTimezone=Asia/Shanghai
     username: root
-    password: mmsghgn
+    password: mysql
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 #mybatis配置
 mybatis:
   config-location: classpath:/mybatis-config.xml
   mapper-locations: classpath:/mapper/*.xml
+
+#python配置
+python:
+    executor: D:\software\python\python.exe
