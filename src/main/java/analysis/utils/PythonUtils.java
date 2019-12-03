@@ -8,12 +8,6 @@ import org.springframework.stereotype.Component;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-/**
- * @Description python utils
- * @Author      dayu
- * @Date        2019/12/3 10:54
- * @Version     v1.0
- */
 @Component
 public class PythonUtils {
 

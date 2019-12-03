@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="../static/img/favicon.png">
+
+    <title>FlatLab - Flat & Responsive Bootstrap Admin Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/bootstrap-reset.css" rel="stylesheet">
+    <!--external css-->
+    <link href="../static/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="../static/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="../static/css/owl.carousel.css" type="text/css">
+
+    <!--right slidebar-->
+    <link href="../static/css/slidebars.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+
+    <link href="../static/css/style.css" rel="stylesheet">
+    <link href="../static/css/style-responsive.css" rel="stylesheet" />
+
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../static/js/html5shiv.js"></script>
+      <script src="../static/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+   <section id="container" >
+      <!--header start-->
+      <header class="header white-bg">
+            <div class="sidebar-toggle-box">
+                <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+            </div>
+            <!--logo start-->
+            <a href="index.html" class="logo">SV<span>MMS</span></a>
+            <!--logo end-->
+            
+            <div class="top-nav ">
+                <!--search & user info start-->
+                <ul class="nav pull-right top-menu">
+                    
+                    <!-- user login dropdown start-->
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <img alt="" src="img/avatar1_small.jpg">
+                            <span class="username">Jhon Doue</span>
+                            <b class="caret"></b>
+                        </a>
+                    </li>
+                    
+                    <!-- user login dropdown end -->
+                </ul>
+                <!--search & user info end-->
+            </div>
+        </header>
+      <!--header end-->
+      <!--sidebar start-->
+      <aside>
+          <div id="sidebar"  class="nav-collapse ">
+              <!-- sidebar menu start-->
+              <ul class="sidebar-menu" id="nav-accordion">
+                  <li>
+                      <a class="active" href="index.html">
+                          <i class="fa fa-dashboard"></i>
+                          <span>模型展示</span>
+                      </a>
+                  </li>
+				  <li>
+				      <a class="active" href="sap-man.html">
+				          <i class="fa fa-dashboard"></i>
+				          <span>模型管理</span>
+				      </a>
+				  </li>
+				  <li>
+				      <a class="active" href="user-man.html">
+				          <i class="fa fa-dashboard"></i>
+				          <span>用户管理</span>
+				      </a>
+				  </li>
+      
+              </ul>
+              <!-- sidebar menu end-->
+          </div>
+      </aside>
+      <!--sidebar end-->
+      <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">
+              <!--state overview start-->
+			  <div class="row">
+				  <div class="col-lg-6">
+					  <section class="panel">
+						  <header class="panel-heading">
+							  样本参数设置
+						  </header>
+						  <header class="panel-heading">
+							  样本集导入
+							  <br/><br/><input type="file" id="exampleInputFile" style="float: left;">
+							  <button type="submit" class="btn btn-info" style="width: 80px;height: 28px;">确认导入</button>
+						  </header>
+						  <div class="panel-body">
+							  <form role="form" >
+								  <div class="form-group">
+									<label for="exampleInputFile">样本集类型</label>
+									<div class="radio">
+								      <label>
+								          <input type="radio" name="optionsRadios" id="sampletype" value="option1" checked>单样本集&nbsp;&nbsp;&nbsp;
+										  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">多样本集
+								      </label>
+								   </div>
+								  <div class="form-group">
+									  <label for="exampleInputFile">选择数据集</label>
+									  <select class="form-control input-sm m-bot15" style="width: 200px;">
+									  	  <option>sigver_3000</option>
+									      <option>sigver_5000</option>
+									      <option>sigver_8000</option>
+									      <option>sigver_10000</option>
+									  </select>
+								  </div>
+								  <div class="form-group"> 
+									  <label for="exampleInputFile">样本集数量设置</label>
+									  <input class="form-control m-bot15" style="width: 12.5rem" type="text" placeholder="训练样本的数量">
+									  <input class="form-control m-bot15" style="width: 12.5rem" type="text" placeholder="测试样本的数量">
+								  </div>
+								  <div class="form-group">
+								      
+								  </div>
+								  <div class="form-group">
+									  <label for="exampleInputFile">测试样本的选取方式</label>
+									  <select class="form-control input-sm m-bot15" style="width: 200px;">
+										  <option>随机采样</option>
+									      <option>MonteCarlo采样</option>
+									      <option>Cross Validation</option>
+									      <option>K-fold Cross Validation</option>
+									  </select>
+								  </div>
+								  <br/><button type="submit" class="btn btn-info">确认</button>
+								  </div>
+							  </form>
+
+				  
+						  </div>
+					  </section>
+				  </div>
+				  <div class="col-lg-6">
+				  					  <section class="panel">
+				  						  <header class="panel-heading">
+				  							  模型参数设置
+				  						  </header>
+										  <header class="panel-heading">
+											  模型上传
+											  <br/><br/><input type="file" id="exampleInputFile" style="float: left;">
+											  <button type="submit" class="btn btn-info" style="width: 80px;height: 28px;">确认上传</button>
+										  </header>
+				  						  <div class="panel-body">
+				  							  <form role="form">
+												  <div class="form-group">
+													  <label for="exampleInputFile">模型模式</label>
+															<div class="radio">
+													     <label>
+													         <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>单模型&nbsp;&nbsp;&nbsp;
+													  		 <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">集成模型
+													     </label>
+													  </div>
+												  </div>
+												  <div class="form-group">
+													  <label for="exampleInputFile">选择模型</label>
+													  <select class="form-control input-sm m-bot15" style="width: 200px;">
+													  	  <option>sigver_model</option>
+													      <option>KNN_DTW</option>
+													      <option>sig_KDTW</option> 
+													  </select>
+												  </div>
+				  								  <div class="form-group">
+													<label for="exampleInputFile">模型收敛方式</label>
+													<div class="radio">
+														 <label>
+															 <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>按精度收敛&nbsp;&nbsp;&nbsp;
+															 <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">按训练时长收敛
+														 </label>
+													  </div>
+				  								  </div>
+												  <div class="form-group">
+													  <label for="exampleInputFile">收敛参数设置</label>
+													  <input class="form-control m-bot15" style="width:300px" type="text" placeholder="请输入收敛精度/时长">
+										
+												  </div>
+												  <div class="form-group">
+													<label for="exampleInputFile">是否保存该模型</label>
+													<div class="radio">
+														 <label>
+															 <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>是&nbsp;&nbsp;&nbsp;
+															 <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">否
+														 </label>
+													  </div>
+												  </div>
+				  								  <button type="submit" class="btn btn-info">训练模型</button>
+												  <button type="submit" class="btn btn-info" >预设为认证模型</button>
+				  							  </form>
+				  
+				  						  </div>
+				  					  </section>
+				  </div>
+				</div>
+              
+              <!--state overview end-->
+			  
+					  </section>
+				  </div>
+				</div>
+          </section>
+      </section>
+      <!--main content end-->
+      <!--footer start-->
+      <footer class="site-footer">
+          <div class="text-center">
+              2013 &copy; FlatLab by VectorLab.
+              <a href="#" class="go-top">
+                  <i class="fa fa-angle-up"></i>
+              </a>
+          </div>
+      </footer>
+      <!--footer end-->
+  </section>
+
+    <!-- js placed at the end of the document so the pages load faster -->
+   <script src="../static/js/jquery.js"></script>
+   <script src="../static/js/bootstrap.min.js"></script>
+   <script class="include" type="text/javascript" src="../static/js/jquery.dcjqaccordion.2.7.js"></script>
+   <script src="../static/js/jquery.scrollTo.min.js"></script>
+   <script src="../static/js/jquery.nicescroll.js" type="text/javascript"></script>
+   <script src="../static/js/jquery.sparkline.js" type="text/javascript"></script>
+   <script src="../static/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
+   <script src="../static/js/owl.carousel.js" ></script>
+   <script src="../static/js/jquery.customSelect.min.js" ></script>
+   <script src="../static/js/respond.min.js" ></script>
+
+
+   <!--common script for all pages-->
+   <script src="../static/js/common-scripts.js"></script>
+
+    <!--script for this page-->
+    <script src="../static/js/sparkline-chart.js"></script>
+    <script src="../static/js/easy-pie-chart.js"></script>
+    <script src="../static/js/count.js"></script>
+
+  <script>
+  </script>
+
+  </body>
+</html>
