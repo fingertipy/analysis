@@ -40,9 +40,9 @@ public class GlobalResponseAdvice implements ResponseBodyAdvice<Object> {
      * @Return      java.lang.Object
      */
     @Override
-    public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        if (o == null) return Response.SUCCESS();
-        return Response.SUCCESS(o);
+    public Object beforeBodyWrite(Object object, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
+        if (object == null) return Response.SUCCESS();
+        return Response.SUCCESS(object);
     }
 
     /**

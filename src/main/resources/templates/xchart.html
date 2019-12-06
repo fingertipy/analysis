@@ -141,7 +141,7 @@
 
   <script>
       //请求地址
-      var path = "http://localhost:8080/analysis/api";
+      var path = "http://localhost:80/analysis/api";
       //echarts初始化
       var myChart = echarts.init(document.getElementById('chart'));
       //加载时展示动画
@@ -156,13 +156,13 @@
           dataType : "json",
           success  : function(data) {
               //非空校验
-              if (!data) return;
+              if (!data || data.code != 200) return;
               //填充数据
-              for (index in data) {
+              for (index in data.data) {
                   //横坐标
-                  abscissas.push(data[index].abscissa);
+                  abscissas.push(data.data[index].abscissa);
                   //纵坐标
-                  ordinates.push(data[index].ordinate);
+                  ordinates.push(data.data[index].ordinate);
               }
               //隐藏加载动画
               myChart.hideLoading();
