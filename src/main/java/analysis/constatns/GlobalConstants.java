@@ -15,9 +15,9 @@ public class GlobalConstants {
     public static final int REQUEST_NOT_FOUND = 404; //未找到请求
 
     /****************************************** 返回响应消息 *******************************************/
-    public static final String SUCCESS_MSG           = "响应成功";   //响应成功
-    public static final String FAILURE_MSG           = "响应失败";   //响应失败
-    public static final String PARAME_ERROR_MSG      = "参数错误";   //参数错误
-    public static final String SERVER_ERROR_MSG      = "服务器错误"; //服务器错误
-    public static final String REQUEST_NOT_FOUND_MSG = "未找到请求"; //未找到请求
+    public static final String SUCCESS_MSG           = "成功";        //响应成功
+    public static final String FAILURE_MSG           = "失败";        //响应失败
+    public static final String PARAME_ERROR_MSG      = "参数错误";    //参数错误
+    public static final String SERVER_ERROR_MSG      = "服务器错误";  //服务器错误
+    public static final String REQUEST_NOT_FOUND_MSG = "请求路径错误";//未找到请求
 }

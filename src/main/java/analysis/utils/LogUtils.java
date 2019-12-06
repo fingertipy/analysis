@@ -34,9 +34,9 @@ public class LogUtils {
         StringWriter writer = new StringWriter();
         ex.printStackTrace(new PrintWriter(writer));
         if (args.length > 0){
-            logger.error(msg + " cause: \n{}\n", ArrayUtils.add(args, writer.toString()));
+            logger.error(msg + " 原因: \n{}\n", ArrayUtils.add(args, writer.toString()));
         } else {
-            logger.error(msg + " cause: \n{}\n", writer.toString());
+            logger.error(msg + " 原因: \n{}\n", writer.toString());
         }
     }
 }
