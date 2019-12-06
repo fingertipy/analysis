@@ -1,6 +1,6 @@
 #服务器配置
 server:
-  port: 8080
+  port: 80
   servlet:
     context-path: /analysis
 
@@ -35,3 +35,7 @@ mybatis:
 #python配置
 python:
     executor: D:\software\python\python.exe
+
+#配置返回统一处理类
+filter:
+  class: analysis.controller.ApiController
