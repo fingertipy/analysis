@@ -2,8 +2,10 @@ package analysis.controller;
 
 import analysis.entity.SampleEntity;
 import analysis.entity.UserInfoEntity;
+import analysis.server.LoginService;
 import analysis.server.SampleService;
 import analysis.server.UserInfoService;
+import analysis.utils.CacheUtils;
 import analysis.utils.PythonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,8 +24,9 @@ import java.util.List;
 @RequestMapping("/api")
 public class ApiController {
     @Autowired
+    private LoginService loginService;
+    @Autowired
     private SampleService sampleService;
-
     @Autowired
     private UserInfoService userInfoService;
 
@@ -53,5 +56,10 @@ public class ApiController {
         PythonUtils.exec(pypath);
         String pypath1 = "D:\\repository\\analysis_python\\analysis\\parametor.py";
         PythonUtils.exec(pypath1, "4", "6");
+    }
+
+    @GetMapping("/login")
+    public Boolean login(UserInfoEntity entity){
+        return loginService.login(entity);
     }
 }

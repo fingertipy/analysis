@@ -31,7 +31,7 @@
 
     <select id="selectUserInfoByUsername" parameterType="string" resultType="analysis.entity.UserInfoEntity">
         SELECT
-            `id`, `username`, null AS `password`, `idcard`, `realname`, `phone`, `udpate_time` AS updateTime, `create_time` AS createTime
+            `id`, `username`, `password`, `idcard`, `realname`, `phone`, `udpate_time` AS updateTime, `create_time` AS createTime
         FROM analysis_user_info
         WHERE `username` = #{username}
     </select>

@@ -1,6 +1,7 @@
 package analysis.entity;
 
 import analysis.constatns.GlobalConstants;
+import analysis.exception.CustomeException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.ToString;
@@ -43,6 +44,13 @@ public class Response<T> implements Serializable {
         Response response = new Response();
         response.setCode(GlobalConstants.FAILURE);
         response.setMsg(GlobalConstants.FAILURE_MSG);
+        return response;
+    }
+
+    public static Response ERROR(CustomeException ex){
+        Response response = new Response();
+        response.setCode(ex.getCode());
+        response.setMsg(ex.getMsg());
         return response;
     }
 }

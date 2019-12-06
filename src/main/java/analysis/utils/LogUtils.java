@@ -25,9 +25,6 @@ public class LogUtils {
      * @Description 打印日志
      * @Author      dayu
      * @Date        2019/12/6 18:15
-     * @Param       ex
-     * @Param       msg
-     * @Param       args
      * @Return      void
      */
     public static void error(Exception ex, String msg, Object ... args){
@@ -37,6 +34,20 @@ public class LogUtils {
             logger.error(msg + " 原因: \n{}\n", ArrayUtils.add(args, writer.toString()));
         } else {
             logger.error(msg + " 原因: \n{}\n", writer.toString());
+        }
+    }
+
+    /**
+     *  打印日志
+     * @param msg
+     * @param args
+     */
+    public static void info(String msg, Object ... args){
+        StringWriter writer = new StringWriter();
+        if (args.length > 0){
+            logger.error(msg, ArrayUtils.add(args, writer.toString()));
+        } else {
+            logger.error(msg, writer.toString());
         }
     }
 }

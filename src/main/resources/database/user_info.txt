@@ -1,3 +1,23 @@
+CREATE TABLE `analysis_sample` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `abscissa` int(8) NOT NULL COMMENT '横坐标',
+  `ordinate` int(8) NOT NULL COMMENT '纵坐标',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='数据分析样本表';
+
+INSERT INTO `analysis`.`analysis_sample`(`id`, `abscissa`, `ordinate`, `create_time`) VALUES (1, 100, 200, '2019-12-01 00:50:06');
+INSERT INTO `analysis`.`analysis_sample`(`id`, `abscissa`, `ordinate`, `create_time`) VALUES (2, 101, 201, '2019-12-01 00:50:06');
+INSERT INTO `analysis`.`analysis_sample`(`id`, `abscissa`, `ordinate`, `create_time`) VALUES (3, 102, 202, '2019-12-01 00:50:06');
+INSERT INTO `analysis`.`analysis_sample`(`id`, `abscissa`, `ordinate`, `create_time`) VALUES (4, 103, 203, '2019-12-01 00:50:06');
+INSERT INTO `analysis`.`analysis_sample`(`id`, `abscissa`, `ordinate`, `create_time`) VALUES (5, 104, 204, '2019-12-01 00:50:06');
+INSERT INTO `analysis`.`analysis_sample`(`id`, `abscissa`, `ordinate`, `create_time`) VALUES (6, 105, 205, '2019-12-01 00:50:06');
+INSERT INTO `analysis`.`analysis_sample`(`id`, `abscissa`, `ordinate`, `create_time`) VALUES (7, 106, 206, '2019-12-01 00:50:06');
+INSERT INTO `analysis`.`analysis_sample`(`id`, `abscissa`, `ordinate`, `create_time`) VALUES (8, 107, 207, '2019-12-01 00:50:06');
+INSERT INTO `analysis`.`analysis_sample`(`id`, `abscissa`, `ordinate`, `create_time`) VALUES (9, 108, 208, '2019-12-01 00:50:06');
+INSERT INTO `analysis`.`analysis_sample`(`id`, `abscissa`, `ordinate`, `create_time`) VALUES (10, 109, 209, '2019-12-01 00:50:07');
+
+
 CREATE TABLE `analysis_user_info` (
   `id` int(5) NOT NULL AUTO_INCREMENT COMMENT '序号',
   `username` varchar(20) NOT NULL COMMENT '用户名',
@@ -10,13 +30,6 @@ CREATE TABLE `analysis_user_info` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '用户信息表';
 
-INSERT INTO analysis_user_info (`username`, `password`, `udpate_time`, `create_time`) VALUE (#{username}, #{password}, now(), now())
-
-UPDATE analysis_user_info SET `username` = #{username}, `password` = #{password},  `idcard` = #{idcard},  `realname` = #{realname},  `phone` = #{phone},  `udpate_time` = now() WHERE `id` = #{id}
-
-SELECT `id`, `username`, 'null' AS `password`, `idcard`, `realname`, `phone`, `udpate_time`, `create_time` FROM analysis_user_info WHERE `username` = #{username}
-
-SELECT * FROM analysis_user_info;
 
 INSERT INTO analysis_user_info (`username`, `password`, `udpate_time`, `create_time`) VALUE ('dayu', 'dayu', now(), now());
 

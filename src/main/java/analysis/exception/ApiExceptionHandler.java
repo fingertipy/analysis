@@ -5,6 +5,7 @@ import analysis.entity.Response;
 import analysis.utils.LogUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -18,6 +19,12 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestControllerAdvice(basePackageClasses = {ApiController.class})
 public class ApiExceptionHandler {
+
+    @ExceptionHandler(CustomeException.class)
+    public Response customeExceptionHandler(HttpServletRequest request, CustomeException ex) throws Exception{
+        //返回异常响应
+        return Response.ERROR(ex);
+    }
 
     @ExceptionHandler(Exception.class)
     public Response defaultExceptionHandler(HttpServletRequest request, Exception ex) throws Exception{
