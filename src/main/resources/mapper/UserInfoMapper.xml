@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="analysis.mapper.UserInfoMapper">
+
+    <insert id="saveUserInfo" parameterType="analysis.entity.UserInfoEntity">
+        INSERT INTO analysis_user_info (`username`, `password`, `udpate_time`, `create_time`) VALUE (#{username}, #{password}, now(), now())
+    </insert>
+
+    <update id="updateUserInfo" parameterType="analysis.entity.UserInfoEntity">
+        UPDATE analysis_user_info
+            <set>
+                <if test="username != null">
+                    `username` = #{username},
+                </if>
+                <if test="password != null">
+                    `password` = #{password},
+                </if>
+                <if test="idcard != null">
+                    `idcard` = #{idcard},
+                </if>
+                <if test="realname != null">
+                    `realname` = #{realname},
+                </if>
+                <if test="phone != null">
+                    `phone` = #{phone},
+                </if>
+                `udpate_time` = now()
+            </set>
+        WHERE `id` = #{id}
+    </update>
+
+    <select id="selectUserInfoByUsername" parameterType="string" resultType="analysis.entity.UserInfoEntity">
+        SELECT
+            `id`, `username`, null AS `password`, `idcard`, `realname`, `phone`, `udpate_time` AS updateTime, `create_time` AS createTime
+        FROM analysis_user_info
+        WHERE `username` = #{username}
+    </select>
+</mapper>

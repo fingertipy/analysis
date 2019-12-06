@@ -1,7 +1,9 @@
 package analysis.controller;
 
 import analysis.entity.SampleEntity;
+import analysis.entity.UserInfoEntity;
 import analysis.server.SampleService;
+import analysis.server.UserInfoService;
 import analysis.utils.PythonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,9 +24,27 @@ public class ApiController {
     @Autowired
     private SampleService sampleService;
 
+    @Autowired
+    private UserInfoService userInfoService;
+
     @GetMapping("/sample")
     public List<SampleEntity> sample(){
         return sampleService.selectAllSample();
+    }
+
+    @GetMapping("/selectuser")
+    public UserInfoEntity selectUserInfo(String username){
+        return userInfoService.selectUserInfo(username);
+    }
+
+    @GetMapping("/saveuser")
+    public Integer saveUserInfo(UserInfoEntity entity){
+        return userInfoService.saveUserInfo(entity);
+    }
+
+    @GetMapping("/updateuser")
+    public Integer udpateUserInfo(UserInfoEntity entity){
+        return userInfoService.updateUserInfo(entity);
     }
 
     @GetMapping("/exec")
