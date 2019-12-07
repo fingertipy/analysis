@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 
@@ -59,7 +60,17 @@ public class ApiController {
     }
 
     @GetMapping("/login")
-    public Boolean login(UserInfoEntity entity){
-        return loginService.login(entity);
+    public Boolean login(HttpServletRequest request, UserInfoEntity entity){
+        return loginService.login(request, entity);
+    }
+
+    @GetMapping("/logout")
+    public Boolean logtout(HttpServletRequest request){
+        return loginService.logout(request);
+    }
+
+    @GetMapping("/register")
+    public Boolean register(UserInfoEntity entity){
+        return loginService.register(entity);
     }
 }

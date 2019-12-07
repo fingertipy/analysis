@@ -1,5 +1,6 @@
 package analysis.configure;
 
+import analysis.utils.CacheUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -14,9 +15,8 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Object user = request.getSession().getAttribute("user");
-        if (user != null) return true;
-        request.getRequestDispatcher("/view/login").forward(request, response);
+        if (CacheUtils.get(request.getSession().getId()) != null) return true;
+        response.sendRedirect("/analysis/view/login");
         return false;
     }
 }

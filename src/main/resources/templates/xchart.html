@@ -53,7 +53,7 @@
                           <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
                           <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
                           <li><a href="#"><i class="fa fa-bell-o"></i> Notification</a></li>
-                          <li><a href="login.html"><i class="fa fa-key"></i> Log Out</a></li>
+                          <li onclick="logout()"><a href="#"><i class="fa fa-key"></i> Log Out</a></li>
                       </ul>
                   </li>
                   <!-- user login dropdown end -->
@@ -189,6 +189,23 @@
               myChart.hideLoading();
           }
       });
+      
+      //退出
+      function logout() {
+          $.ajax({
+              type: "get",
+              url: path + "/logout",
+              dataType: "json",
+              success: function (data) {
+                  if (data && data.data){
+                      window.location.href = "http://localhost:80/analysis/view/login"
+                  }
+              },
+              error: function (data) {
+                  alert("服务器错误,请稍后重试!");
+              }
+          });
+      };
   </script>
   </body>
 </html>

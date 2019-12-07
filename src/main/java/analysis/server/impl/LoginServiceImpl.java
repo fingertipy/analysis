@@ -5,10 +5,13 @@ import analysis.exception.CustomeException;
 import analysis.exception.ExceptionEnum;
 import analysis.server.LoginService;
 import analysis.server.UserInfoService;
+import analysis.utils.CacheUtils;
 import analysis.utils.MD5Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Login service imp
@@ -26,7 +29,7 @@ public class LoginServiceImpl implements LoginService {
     private UserInfoService userInfoService;
 
     @Override
-    public Boolean login(UserInfoEntity entity) throws CustomeException{
+    public Boolean login(HttpServletRequest request, UserInfoEntity entity) throws CustomeException{
         //参数校验
         if (entity == null || StringUtils.isBlank(entity.getUsername()) || StringUtils.isBlank(entity.getPassword()))
             throw new CustomeException(ExceptionEnum.PARAME_ERROR);
@@ -36,13 +39,33 @@ public class LoginServiceImpl implements LoginService {
         if (userInfo == null)
             throw new CustomeException(ExceptionEnum.USER_NOT_FOUND);
         //密码错误
-        if (!MD5Utils.MD5Code(entity.getPassword()).equals(MD5Utils.MD5Code(userInfo.getPassword())))
+        if (!MD5Utils.MD5Code(entity.getPassword()).equals(userInfo.getPassword()))
             throw new CustomeException(ExceptionEnum.PASSWORD_ERROR);
+        //添加至缓存
+        CacheUtils.put(request.getSession().getId(), userInfo);
         return true;
     }
 
     @Override
-    public String register(UserInfoEntity entity) {
-        return LOGIN_PAGE;
+    public Boolean logout(HttpServletRequest request) throws CustomeException{
+        CacheUtils.remove(request.getSession().getId());
+        return true;
+    }
+
+    @Override
+    public Boolean register(UserInfoEntity entity) throws CustomeException{
+        //参数校验
+        if (entity == null || StringUtils.isBlank(entity.getUsername()) || StringUtils.isBlank(entity.getPassword()))
+            throw new CustomeException(ExceptionEnum.PARAME_ERROR);
+        //获取用户
+        UserInfoEntity userInfo = userInfoService.selectUserInfo(entity.getUsername());
+        if (userInfo != null) throw new CustomeException(ExceptionEnum.USER_EXSIST);
+        //密码MD5
+        entity.setPassword(MD5Utils.MD5Code(entity.getPassword()));
+        //注册
+        Integer row = userInfoService.saveUserInfo(entity);
+        //注册失败
+        if (row == 0) throw new CustomeException(ExceptionEnum.ERROR);
+        return true;
     }
 }
