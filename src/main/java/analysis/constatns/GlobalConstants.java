@@ -20,4 +20,11 @@ public class GlobalConstants {
     public static final String PARAME_ERROR_MSG      = "参数错误";    //参数错误
     public static final String SERVER_ERROR_MSG      = "服务器错误";  //服务器错误
     public static final String REQUEST_NOT_FOUND_MSG = "请求路径错误";//未找到请求
+
+    /****************************************** 分析模型类型 *******************************************/
+    public static final int ANALYSIS_MODEL_1 = 1; //模型：1
+    public static final int ANALYSIS_MODEL_2 = 2; //模型：2
+
+    /****************************************** 操作系统类型 *******************************************/
+    public static final String SYSTEM_WINDOWS = "Windows"; //windows
 }

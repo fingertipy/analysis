@@ -1,5 +1,7 @@
 package analysis.utils;
 
+import analysis.constatns.GlobalConstants;
+import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,16 +15,40 @@ public class PythonUtils {
 
     private PythonUtils(){}
 
-    //python executor
-    private static String executor;
+    //windows python executor
+    private static String windowsExecutor;
 
-    @Value("${python.executor}")
-    public void setExecutor(String executor){
-        this.executor = executor;
+    @Value("${python.executor.windows}")
+    public void setWindowsExecutor(String windowsExecutor){
+        this.windowsExecutor = windowsExecutor;
+    }
+
+    //linux python executor
+    private static String linuxExecutor;
+
+    @Value("${python.executor.linux}")
+    public void setLinuxExecutor(String linuxExecutor){
+        this.linuxExecutor = linuxExecutor;
     }
 
     //logger
     private static Logger logger = LoggerFactory.getLogger(PythonUtils.class);
+
+    /**
+     * @Description 匹配系统执行器
+     * @Author      dayu
+     * @Date        2019/12/12 16:11
+     * @Param
+     * @Return      java.lang.String
+     */
+    private static String matchExecutor(){
+        String system   = System.getProperty("os.name");
+        String executor = linuxExecutor;
+        //windows系统
+        if (system.contains(GlobalConstants.SYSTEM_WINDOWS))
+            executor = windowsExecutor;
+        return executor;
+    }
 
     /**
      * @Description execute python program
@@ -34,8 +60,9 @@ public class PythonUtils {
     public static void exec(String path){
         try {
             logger.info("======================== Execute python program : start===========================");
+            LogUtils.info("macth executor path: {}, model path: {}", matchExecutor(), path);
             //执行脚本
-            Process process = Runtime.getRuntime().exec(new String[]{executor, path});
+            Process process = Runtime.getRuntime().exec(new String[]{matchExecutor(), path});
             //接口执行结果
             BufferedReader buffer = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line = null;
@@ -59,24 +86,29 @@ public class PythonUtils {
      * @Param
      * @Return      void
      */
-    public static void exec(String path, String arg1, String arg2){
+    public static String exec(String path, String ... args){
         try {
             logger.info("======================== Execute python program : start===========================");
+            LogUtils.info("macth executor path: {}, model path: {}", matchExecutor(), path);
             //执行脚本
-            Process process = Runtime.getRuntime().exec(new String[]{executor, path, arg1, arg2});
+            Process process = Runtime.getRuntime().exec(new String[]{matchExecutor(), path, JSONObject.toJSONString(args)});
             //接口执行结果
             BufferedReader buffer = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line = null;
+            //缓冲
+            StringBuffer result = new StringBuffer();
             //处理执行结果
             while ((line = buffer.readLine()) != null){
-                System.out.println(line);
+                result.append(line);
             }
             //关闭资源
             buffer.close();
             process.waitFor();
             logger.info("======================== Execute python program :   end===========================");
+            return result.toString();
         } catch (Exception e) {
             logger.error("Execute python program exception: ", e);
+            return null;
         }
     }
 }

@@ -83,7 +83,7 @@
                $("#pnotice").text("密码不能为空");
            }
            //请求地址
-           var path = "http://localhost:80/analysis/api";
+           var path = "http://192.168.0.240/analysis/api";
            //登录
            if (pass){
                $.ajax({
@@ -96,14 +96,14 @@
                    dataType : "json",
                    success  : function(data) {
                        if (data && data.code == 200){
-                           window.location.href = "http://localhost:80/analysis/view/index";
+                           window.location.href = "http://192.168.0.240/analysis/view/index";
                        } else {
                            $("#pnotice").show();
                            $("#pnotice").text(data.msg);
                        }
                    },
                    error : function(data) {
-                       alert("服务器错误,请稍后重试!");
+                       alert(data.msg);
                    }
                });
            }
@@ -111,7 +111,7 @@
 
        //注册
         function register() {
-            window.location.href = "http://localhost:80/analysis/view/register";
+            window.location.href = "http://192.168.0.240/analysis/view/register";
         }
     </script>
   </body>

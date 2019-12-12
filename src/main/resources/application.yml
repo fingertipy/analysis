@@ -14,6 +14,12 @@ spring:
   thymeleaf:
     prefix: classpath:/templates/
 
+  #限制上传文件大小: 100MB
+  servlet:
+    multipart:
+      max-file-size: 104857600
+      max-request-size: 104857600
+
   #热加载
   devtools:
     restart:
@@ -22,7 +28,7 @@ spring:
 
   #数据源
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/analysis?useUnicode=true&characterEncoding=utf-8&generateSimpleParameterMetadata=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://192.168.0.195:3306/analysis?useUnicode=true&characterEncoding=utf-8&generateSimpleParameterMetadata=true&serverTimezone=Asia/Shanghai
     username: root
     password: mysql
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -34,8 +40,22 @@ mybatis:
 
 #python配置
 python:
-    executor: D:\software\python\python.exe
+    #执行程序
+    executor:
+      windows: D:\software\python\python.exe
+      linux:   python
+    #分析模型
+    analysis:
+      model:
+        windows: D:\repository\analysis_python\analysis\parametor.py
+        linux:   /opt/python/parametor.py
 
 #配置返回统一处理类
 filter:
   class: analysis.controller.ApiController
+
+#文件上传路径
+file:
+  path:
+    windows: D:\data\
+    linux:   /opt/data/
