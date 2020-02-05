@@ -6,15 +6,13 @@ import analysis.exception.CustomeException;
 import analysis.exception.ExceptionEnum;
 import analysis.server.LoginService;
 import analysis.server.UserInfoService;
-import analysis.utils.CacheUtils;
-import analysis.utils.LogUtils;
-import analysis.utils.MD5Utils;
-import analysis.utils.PythonUtils;
+import analysis.utils.*;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -82,16 +80,16 @@ public class LoginServiceImpl implements LoginService {
      * @param image       签名图片地址
      * @return
      */
-    public boolean register(UserInfo userInfo, List<Coordinate> coordinates, String image){
+    public boolean register(UserInfo userInfo, List<Coordinate> coordinates, MultipartFile multipartFile){
         //注册响应值
         boolean result = false;
         try {
             //保存用户信息至数据库
             result = saveUserInfo(userInfo);
-            //保存用户签名图片
-            result = saveSignatureImage(image);
             //保存用户签名坐标
             result = saveSignatureCoordinate(coordinates);
+            //保存用户签名图片
+            result = saveSignatureImage(FileUtils.saveFile(multipartFile));
             //返回注册结果
             return result;
         } catch (Exception e) {
@@ -113,24 +111,36 @@ public class LoginServiceImpl implements LoginService {
     }
 
     /**
-     * 签名登录
+     * 签名认证
      * @param userInfo
      * @param coordinates 签名坐标
      * @param image       签名图片地址
      * @return
      */
-    public boolean signatureLogin(UserInfo userInfo, List<Coordinate> coordinates, String image){
+    public boolean signatureVerification(Long account, List<Coordinate> coordinates, String image){
         //登录响应值
         boolean result = false;
         try {
             //用户信息非空校验
-            if (userInfo == null) return result;
-            //验证用户签名坐标
-            return verificationSignature(userInfo.getAccount(), coordinates, image);
+            if (account == null || CollectionUtils.isEmpty(coordinates) || StringUtils.isBlank(image)) return false;
+            //构建坐标模型参数
+            ModelData cModelData = ModelData.buidle(ModelConstants.MODEL_TYPE_COORDINATE, account, coordinates);
+            //调用模型验证用户签名坐标
+            ModelResult coordinateResult = PythonUtils.exec(VERIFICATION_COORDINATE_MODEL_PATH, JSONObject.toJSONString(cModelData));
+            //构建图片模型参数
+            ModelData iModelData = ModelData.buidle(ModelConstants.MODEL_TYPE_IAMGE, account, image);
+            //调用模型验证用户签名图片
+            ModelResult imageResult = PythonUtils.exec(VERIFICATION_IMAGE_MODEL_PATH, JSONObject.toJSONString(iModelData));
+            //计算并返回模型验证结果
+            return calcModelResult(coordinateResult, imageResult);
         } catch (Exception e) {
-            LogUtils.error(e, "用户签名登录异常,userInfo:{},coordinates:{},image:{}", userInfo, coordinates, image);
+            LogUtils.error(e, "用户签名认证异常,account:{},coordinates:{},image:{}", account, coordinates, image);
         }
         return result;
+    }
+
+    private boolean calcModelResult(ModelResult coordinateResult, ModelResult imageResult){
+        return true;
     }
 
     private static final String VERIFICATION_COORDINATE_MODEL_PATH = null;

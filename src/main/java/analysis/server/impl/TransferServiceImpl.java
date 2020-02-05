@@ -46,7 +46,7 @@ public class TransferServiceImpl implements TransferService {
         String result = null;
         switch (type){
             case GlobalConstants.ANALYSIS_MODEL_1:
-                result = PythonUtils.exec(matchModelPath(), args);
+                //result = PythonUtils.exec(matchModelPath(), args);
                 break;
             case GlobalConstants.ANALYSIS_MODEL_2:
                 break;
@@ -61,7 +61,7 @@ public class TransferServiceImpl implements TransferService {
         String result = null;
         switch (type){
             case GlobalConstants.ANALYSIS_MODEL_1:
-                result = PythonUtils.exec(matchModelPath(), args);
+                //result = PythonUtils.exec(matchModelPath(), args);
                 break;
             case GlobalConstants.ANALYSIS_MODEL_2:
                 break;
