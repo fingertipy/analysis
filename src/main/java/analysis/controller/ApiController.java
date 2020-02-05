@@ -1,19 +1,17 @@
 package analysis.controller;
 
-import analysis.entity.SampleEntity;
+import analysis.constatns.GlobalConstants;
+import analysis.entity.Response;
 import analysis.entity.UserInfoEntity;
 import analysis.server.LoginService;
-import analysis.server.SampleService;
-import analysis.server.UserInfoService;
-import analysis.utils.CacheUtils;
+import analysis.server.TransferService;
+import analysis.utils.LogUtils;
 import analysis.utils.PythonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * API Controller
@@ -23,38 +21,28 @@ import java.util.List;
 @CrossOrigin
 public class ApiController {
     @Autowired
+    private TransferService transferService;
+    @Autowired
     private LoginService loginService;
-    @Autowired
-    private SampleService sampleService;
-    @Autowired
-    private UserInfoService userInfoService;
 
-    @GetMapping("/sample")
-    public List<SampleEntity> sample(){
-        return sampleService.selectAllSample();
-    }
-
-    @GetMapping("/selectuser")
-    public UserInfoEntity selectUserInfo(String username){
-        return userInfoService.selectUserInfo(username);
-    }
-
-    @GetMapping("/saveuser")
-    public Integer saveUserInfo(UserInfoEntity entity){
-        return userInfoService.saveUserInfo(entity);
-    }
-
-    @GetMapping("/updateuser")
-    public Integer udpateUserInfo(UserInfoEntity entity){
-        return userInfoService.updateUserInfo(entity);
+    @GetMapping("/invok")
+    public void invok(String args){
+        Response response = transferService.invok(Response.class, GlobalConstants.ANALYSIS_MODEL_1, args);
+        LogUtils.info(response.toString());
     }
 
     @GetMapping("/exec")
-    public void exec(){
+    public void exec() {
         String pypath = "D:\\repository\\analysis_python\\analysis\\model.py";
         PythonUtils.exec(pypath);
         String pypath1 = "D:\\repository\\analysis_python\\analysis\\parametor.py";
         PythonUtils.exec(pypath1, "6");
+    }
+
+    @PostMapping("/upload")
+    public void upload(@RequestParam("file") MultipartFile file) throws Exception{
+        String path = transferService.saveFile(file);
+        LogUtils.info("file path: {}", path);
     }
 
     @GetMapping("/login")

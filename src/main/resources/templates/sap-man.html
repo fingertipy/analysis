@@ -161,8 +161,10 @@
 				  						  </header>
 										  <header class="panel-heading">
 											  模型上传
-											  <br/><br/><input type="file" id="exampleInputFile" style="float: left;">
-											  <button type="submit" class="btn btn-info" style="width: 80px;height: 28px;">确认上传</button>
+											  <form enctype="multipart/form-data" method="post" action="http://192.168.0.240/analysis/api/upload">
+												  <br/><br/><input type="file" name="file" id="exampleInputFile" style="float: left;">
+												  <button type="submit" class="btn btn-info" style="width: 80px;height: 28px;">确认上传</button>
+											  </form>
 										  </header>
 				  						  <div class="panel-body">
 				  							  <form role="form">

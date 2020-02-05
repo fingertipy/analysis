@@ -22,6 +22,8 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(CustomeException.class)
     public Response customeExceptionHandler(HttpServletRequest request, CustomeException ex) throws Exception{
+        //打印异常日志
+        LogUtils.info("自定义异常: {}", ex.getMsg());
         //返回异常响应
         return Response.ERROR(ex);
     }

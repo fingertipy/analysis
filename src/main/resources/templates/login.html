@@ -83,7 +83,7 @@
                $("#pnotice").text("密码不能为空");
            }
            //请求地址
-           var path = "http://localhost:80/analysis/api";
+           var path = "http://192.168.0.240/analysis/api";
            //登录
            if (pass){
                $.ajax({
@@ -103,7 +103,7 @@
                        }
                    },
                    error : function(data) {
-                       alert("服务器错误,请稍后重试!");
+                       alert(data.msg);
                    }
                });
            }

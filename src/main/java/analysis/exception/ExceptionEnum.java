@@ -8,7 +8,11 @@ public enum ExceptionEnum {
     PARAME_ERROR(-2, "参数异常"),
     USER_NOT_FOUND(-3, "用户不存在"),
     PASSWORD_ERROR(-4, "账号或密码错误"),
-    USER_EXSIST(-5, "用户已存在");
+    USER_EXSIST(-5, "用户已存在"),
+    EMPTY_FILE(-6, "文件为空"),
+    CREATE_DIRECTORY_FAILED(-7, "文件目录创建失败"),
+    FILE_EXISTS(-8, "文件已存在")
+    ;
 
     private Integer code;
     private String  msg;

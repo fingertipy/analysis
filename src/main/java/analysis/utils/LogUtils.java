@@ -45,9 +45,9 @@ public class LogUtils {
     public static void info(String msg, Object ... args){
         StringWriter writer = new StringWriter();
         if (args.length > 0){
-            logger.error(msg, ArrayUtils.add(args, writer.toString()));
+            logger.info(msg, ArrayUtils.add(args, writer.toString()));
         } else {
-            logger.error(msg, writer.toString());
+            logger.info(msg, writer.toString());
         }
     }
 }
