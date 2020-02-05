@@ -11,12 +11,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfigure implements WebMvcConfigurer {
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginHandlerInterceptor())
-                .addPathPatterns("/view/**")
-                .excludePathPatterns("/view/login","/view/register","/static/**");
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(new LoginHandlerInterceptor())
+//                .addPathPatterns("/view/**")
+//                .excludePathPatterns("/view/login.html","/view/register.html","/static/**");
+//    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

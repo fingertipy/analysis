@@ -1,5 +1,8 @@
 package analysis.utils;
 
+import analysis.entity.ModelResult;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONPObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -59,24 +62,39 @@ public class PythonUtils {
      * @Param
      * @Return      void
      */
-    public static void exec(String path, String arg1, String arg2){
+    public static ModelResult exec(String path, String args){
         try {
             logger.info("======================== Execute python program : start===========================");
             //执行脚本
-            Process process = Runtime.getRuntime().exec(new String[]{executor, path, arg1, arg2});
+            Process process = Runtime.getRuntime().exec(new String[]{executor, path, args});
             //接口执行结果
             BufferedReader buffer = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line = null;
+            //响应结果缓冲s
+            StringBuffer resultBuffer = new StringBuffer();
             //处理执行结果
+            String line = null;
             while ((line = buffer.readLine()) != null){
-                System.out.println(line);
+                resultBuffer.append(line);
             }
             //关闭资源
             buffer.close();
             process.waitFor();
             logger.info("======================== Execute python program :   end===========================");
+            //返回默认数据
+            if (resultBuffer.length() == 0) return defaultModelResult();
+            //返回响应数据
+            return JSONObject.parseObject(resultBuffer.toString(), ModelResult.class);
         } catch (Exception e) {
             logger.error("Execute python program exception: ", e);
         }
+        return defaultModelResult();
+    }
+
+    /**
+     * 返回默认数据
+     * @return
+     */
+    private static ModelResult defaultModelResult(){
+        return new ModelResult();
     }
 }

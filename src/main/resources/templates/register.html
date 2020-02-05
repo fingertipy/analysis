@@ -23,9 +23,8 @@
   <body class="login-body">
     <div class="container">
       <div class="form-signin">
-        <h2 class="form-signin-heading">立即注册</h2>
+        <h2 class="form-signin-heading">SVMMS</h2>
         <div class="login-wrap">
-            <p>请输入注册信息</p>
             <input id="username" type="text" class="form-control" placeholder="账号" autofocus>
             <span id="unotice" style="display: none; color: red"></span>
             <input id="password" type="password" class="form-control" placeholder="密码">
@@ -92,7 +91,7 @@
                   dataType : "json",
                   success  : function(data) {
                       if (data && data.code == 200){
-                          window.location.href = "http://localhost:80/analysis/view/login";
+                          window.location.href = "http://localhost:80/analysis/view/login.html";
                       } else {
                           $("#rnotice").show();
                           $("#rnotice").text(data.msg);
@@ -107,7 +106,7 @@
 
       //登录
       function login() {
-          window.location.href = "http://localhost:80/analysis/view/login";
+          window.location.href = "http://localhost:80/analysis/view/login.html";
       }
   </script>
   </body>

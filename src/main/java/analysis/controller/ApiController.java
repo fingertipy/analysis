@@ -9,10 +9,7 @@ import analysis.utils.CacheUtils;
 import analysis.utils.PythonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -23,6 +20,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class ApiController {
     @Autowired
     private LoginService loginService;
@@ -56,7 +54,7 @@ public class ApiController {
         String pypath = "D:\\repository\\analysis_python\\analysis\\model.py";
         PythonUtils.exec(pypath);
         String pypath1 = "D:\\repository\\analysis_python\\analysis\\parametor.py";
-        PythonUtils.exec(pypath1, "4", "6");
+        PythonUtils.exec(pypath1, "6");
     }
 
     @GetMapping("/login")

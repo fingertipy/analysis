@@ -16,7 +16,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (CacheUtils.get(request.getSession().getId()) != null) return true;
-        response.sendRedirect("/analysis/view/login");
+        response.sendRedirect("/analysis/view/login.html");
         return false;
     }
 }

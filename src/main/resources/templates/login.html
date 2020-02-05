@@ -22,7 +22,7 @@
   <body class="login-body">
     <div class="container">
         <div class="form-signin">
-            <h2 class="form-signin-heading">登录</h2>
+            <h2 class="form-signin-heading">SVMMS</h2>
             <div class="login-wrap">
                 <input id="username" type="text" class="form-control" placeholder="账号" autofocus>
                 <span id="unotice" style="display: none; color: red"></span>
@@ -31,7 +31,7 @@
                 <button class="btn btn-lg btn-login btn-block" onclick="login()">登录</button>
                 <div class="registration">
                     还没有账号?
-                    <a class="" onclick="register()">
+                    <a id="register_btn" class="btn" onclick="register()">
                         注册
                     </a>
                 </div>
@@ -96,7 +96,7 @@
                    dataType : "json",
                    success  : function(data) {
                        if (data && data.code == 200){
-                           window.location.href = "http://localhost:80/analysis/view/index";
+                           window.location.href = "http://localhost:80/analysis/view/index.html";
                        } else {
                            $("#pnotice").show();
                            $("#pnotice").text(data.msg);
@@ -111,7 +111,7 @@
 
        //注册
         function register() {
-            window.location.href = "http://localhost:80/analysis/view/register";
+            window.location.href = "http://localhost:80/analysis/view/register.html";
         }
     </script>
   </body>

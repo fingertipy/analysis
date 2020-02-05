@@ -1,17 +1,23 @@
 package analysis.server.impl;
 
-import analysis.entity.UserInfoEntity;
+import analysis.constatns.ModelConstants;
+import analysis.entity.*;
 import analysis.exception.CustomeException;
 import analysis.exception.ExceptionEnum;
 import analysis.server.LoginService;
 import analysis.server.UserInfoService;
 import analysis.utils.CacheUtils;
+import analysis.utils.LogUtils;
 import analysis.utils.MD5Utils;
+import analysis.utils.PythonUtils;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Login service imp
@@ -67,5 +73,100 @@ public class LoginServiceImpl implements LoginService {
         //注册失败
         if (row == 0) throw new CustomeException(ExceptionEnum.ERROR);
         return true;
+    }
+
+    /**
+     * 注册
+     * @param userInfo    用户信息
+     * @param coordinates 签名坐标
+     * @param image       签名图片地址
+     * @return
+     */
+    public boolean register(UserInfo userInfo, List<Coordinate> coordinates, String image){
+        //注册响应值
+        boolean result = false;
+        try {
+            //保存用户信息至数据库
+            result = saveUserInfo(userInfo);
+            //保存用户签名图片
+            result = saveSignatureImage(image);
+            //保存用户签名坐标
+            result = saveSignatureCoordinate(coordinates);
+            //返回注册结果
+            return result;
+        } catch (Exception e) {
+            LogUtils.error(e, "用户注册异常,userInfo:{},coordinates:{}", userInfo, coordinates);
+        }
+        return result;
+    }
+
+    private boolean saveUserInfo(UserInfo userInfo){
+        return true;
+    }
+
+    private boolean saveSignatureCoordinate(List<Coordinate> coordinates){
+        return true;
+    }
+
+    private boolean saveSignatureImage(String image){
+        return true;
+    }
+
+    /**
+     * 签名登录
+     * @param userInfo
+     * @param coordinates 签名坐标
+     * @param image       签名图片地址
+     * @return
+     */
+    public boolean signatureLogin(UserInfo userInfo, List<Coordinate> coordinates, String image){
+        //登录响应值
+        boolean result = false;
+        try {
+            //用户信息非空校验
+            if (userInfo == null) return result;
+            //验证用户签名坐标
+            return verificationSignature(userInfo.getAccount(), coordinates, image);
+        } catch (Exception e) {
+            LogUtils.error(e, "用户签名登录异常,userInfo:{},coordinates:{},image:{}", userInfo, coordinates, image);
+        }
+        return result;
+    }
+
+    private static final String VERIFICATION_COORDINATE_MODEL_PATH = null;
+    private static final String VERIFICATION_IMAGE_MODEL_PATH = null;
+    private static final String VERIFICATION_TRAIN_MODEL_PATH = null;
+
+    /**
+     * 验证用户签名
+     * @param account     用户账号
+     * @param coordinates 签名坐标
+     * @param image       签名图片地址
+     * @return
+     */
+    private boolean verificationSignature(Long account, List<Coordinate> coordinates, String image){
+        //参数非空校验
+        if (account == null || CollectionUtils.isEmpty(coordinates) || StringUtils.isBlank(image)) return false;
+        //构建坐标模型参数
+        ModelData cModelData = ModelData.buidle(ModelConstants.MODEL_TYPE_COORDINATE, account, coordinates);
+        //调用模型验证用户签名坐标
+        ModelResult coordinateResult = PythonUtils.exec(VERIFICATION_COORDINATE_MODEL_PATH, JSONObject.toJSONString(cModelData));
+        //构建图片模型参数
+        ModelData iModelData = ModelData.buidle(ModelConstants.MODEL_TYPE_IAMGE, account, image);
+        //调用模型验证用户签名图片
+        ModelResult imageResult = PythonUtils.exec(VERIFICATION_IMAGE_MODEL_PATH, JSONObject.toJSONString(iModelData));
+        //返回模型验证结果
+        return imageResult.getVerification() && coordinateResult.getVerification();
+    }
+
+    /**
+     * 训练模型
+     * @param modelData
+     */
+    public void train(ModelData modelData){
+        //设置类型为训练模型
+        modelData.setType(ModelConstants.MODEL_TYPE_TRAIN);
+        //调用模型完成训练
+        PythonUtils.exec(VERIFICATION_TRAIN_MODEL_PATH, JSONObject.toJSONString(modelData));
     }
 }
